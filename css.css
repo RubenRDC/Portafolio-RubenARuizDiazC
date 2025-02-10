@@ -1,0 +1,287 @@
+html {
+    scroll-behavior: smooth;
+}
+
+* {
+    margin: 0;
+}
+
+:root {
+    --maxWidthContentGeneral: 750px;
+    --colorBotonesTagsLinks: #7f5af0;
+    --colorTitulos: #fffffe;
+    --colorParrafos: #94a1b2;
+    --colorFondoPrincipal: #16161a;
+    /*Y Fondo contenedores en fondo secundario.*/
+    --colorFondoSecundario: #242629;
+    /*Y Fondo contenedores en fondo principal.*/
+}
+
+body {
+    font-family: "Noto Sans", serif;
+    background-color: var(--colorFondoSecundario);
+}
+
+.offScroll {
+    overflow: hidden;
+}
+
+.centerHFlex {
+    justify-content: center;
+}
+
+h1,
+h2,
+h3,
+h4 {
+    color: var(--colorTitulos);
+}
+
+h1 {
+    font-size: 20px;
+}
+
+h2 {
+    font-size: 18px;
+}
+
+h3 {
+    font-size: 16px;
+}
+
+ul {
+    padding-inline-start: 20px;
+}
+
+p,
+li {
+    color: var(--colorParrafos);
+    font-size: 14px;
+}
+
+svg,
+a {
+    max-height: 100%;
+}
+
+strong {
+    color: var(--colorBotonesTagsLinks);
+}
+
+section {
+    scroll-margin-top: 57px;
+    /* Ajusta según la altura de tu header */
+}
+
+
+.cabecera {
+    position: sticky;
+    /*Ocupa espacio a diferencia del Fixed*/
+    top: 0;
+    background-color: var(--colorFondoPrincipal);
+    backdrop-filter: blur(1px);
+    min-width: 100%;
+    padding: 5px 0px 5px 0px;
+    box-shadow: 0 0 5px black;
+}
+
+.cabecera_content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.nav {
+    display: flex;
+    align-items: flex-end;
+}
+
+.nav a {
+    display: flex;
+    text-decoration: none;
+    padding: 10px;
+    align-items: center;
+    color: var(--colorTitulos);
+}
+
+.cabecera_content h1 {
+    padding: 10px;
+}
+
+.titulo-academico {
+    text-transform: uppercase;
+}
+
+.content_seccion,
+.pres,
+.cabecera_content {
+    max-width: var(--maxWidthContentGeneral);
+    margin: 0 auto;
+}
+
+.pres {
+    padding: 100px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.pres_content {
+    padding: 10px;
+}
+
+.p_textual_summ {
+    margin: 25px 0;
+}
+
+
+.pres img {
+    max-height: 200px;
+    max-width: 200px;
+    min-width: 200px;
+    min-height: 200px;
+    /*border: #0155a8 solid;*/
+    /*box-shadow: 0px 0px 5px black;
+     x | y | blur-radius | color */
+    margin: 10px;
+    filter: drop-shadow(0 0 0.75rem black);
+    border-radius: 20%;
+    z-index: -1;
+}
+
+.btns {
+    display: flex;
+    gap: 8px;
+}
+
+.btn {
+    display: flex;
+    max-width: fit-content;
+    border: var(--colorBotonesTagsLinks) solid;
+    background-color: var(--colorBotonesTagsLinks);
+    padding: 5px;
+    text-decoration: none;
+    border-radius: 10px;
+    height: 25px;
+    align-items: center;
+    box-shadow: 0px 0px 5px black;
+    color: white;
+    justify-content: center;
+}
+
+.btn p {
+    font-size: 12px;
+    display: inline;
+    margin: 0;
+    color: var(--colorTitulos);
+}
+
+@media (width<664px) {
+    .cabecera {
+        position: fixed;
+        top: auto;
+        bottom: 0;
+        width: 100%;
+    }
+
+    .content {
+        margin-bottom: 72px;
+        /*Al cambiar la posicion de la cabecera compenso el espacio ocupado*/
+    }
+
+    .cabecera_content h1 {
+        display: none;
+    }
+
+    .nav a {
+        flex-direction: column;
+        width: -webkit-fill-available;
+    }
+
+    .nav {
+        width: 100%;
+    }
+
+    .pres {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .btns {
+        justify-content: center;
+    }
+
+    .feedbackRequest {
+        display: none;
+    }
+
+    section {
+        scroll-margin-top: 0;
+        /* Ajusta según la altura de tu header */
+    }
+}
+
+.titulo_seccion {
+    line-height: 1;
+    border-bottom: 3px solid;
+    border-color: var(--colorBotonesTagsLinks);
+    padding: 5px;
+    align-items: center;
+    display: flex;
+}
+
+.feedbackRequest {
+    max-width: 270px;
+    position: fixed;
+    right: 0;
+    bottom: -232px;
+    transition: bottom 0.5s;
+    background-color: var(--colorFondoSecundario);
+    border-radius: 5px;
+    box-shadow: 0px 0px 5px black;
+}
+
+.feedbackRequest:hover {
+    bottom: 0;
+}
+
+.content_feedbackRequest {
+    padding: 5px;
+
+    & p {
+        margin: 5px;
+    }
+}
+
+
+#formacionAcademica {
+    background-color: var(--colorFondoPrincipal);
+}
+
+.content_seccion {
+    padding: 10px 0;
+}
+
+.content_article {
+    display: flex;
+    padding: 10px;
+
+    & svg {
+        min-width: 20px;
+    }
+}
+
+.tags {
+    padding: 0;
+    list-style-type: none;
+    display: flex;
+    gap: 5px;
+    flex-wrap: wrap;
+}
+
+.itemsTags {
+    background-color: var(--colorBotonesTagsLinks);
+    padding: 4px 10px;
+    border-radius: 5px;
+    font-size: 10px;
+}
