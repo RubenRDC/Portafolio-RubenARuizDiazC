@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Staatliches&display=swap');
+
 html {
     scroll-behavior: smooth;
 }
@@ -62,10 +64,14 @@ li {
 svg,
 a {
     max-height: 100%;
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: var(--colorTitulos);
 }
 
 strong {
-    color: var(--colorBotonesTagsLinks);
+    color: var(#ac91ff);
 }
 
 section {
@@ -94,14 +100,10 @@ section {
 .nav {
     display: flex;
     align-items: flex-end;
-}
 
-.nav a {
-    display: flex;
-    text-decoration: none;
-    padding: 10px;
-    align-items: center;
-    color: var(--colorTitulos);
+    & a {
+        padding: 10px;
+    }
 }
 
 .cabecera_content h1 {
@@ -136,10 +138,7 @@ section {
 
 
 .pres img {
-    max-height: 200px;
-    max-width: 200px;
-    min-width: 200px;
-    min-height: 200px;
+    max-width: 100%;
     /*border: #0155a8 solid;*/
     /*box-shadow: 0px 0px 5px black;
      x | y | blur-radius | color */
@@ -167,13 +166,7 @@ section {
     box-shadow: 0px 0px 5px black;
     color: white;
     justify-content: center;
-}
-
-.btn p {
     font-size: 12px;
-    display: inline;
-    margin: 0;
-    color: var(--colorTitulos);
 }
 
 @media (width<664px) {
