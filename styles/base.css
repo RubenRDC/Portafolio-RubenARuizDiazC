@@ -269,12 +269,11 @@ section {
 
 .articles_grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
 }
 
-.skill {
+.flex_column {
     flex-direction: column;
-    max-width: fit-content;
     align-items: center;
 }
 
@@ -291,4 +290,14 @@ section {
     padding: 4px 10px;
     border-radius: 5px;
     font-size: 10px;
+}
+
+.content_project {
+    margin: 10px;
+    border-radius: 5px;
+    & p{
+        height: 100px;
+        overflow: hidden;
+    }
+    & h3{ text-align: center;}
 }
