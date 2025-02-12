@@ -269,7 +269,7 @@ section {
 
 .articles_grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
 }
 
 .flex_column {
@@ -293,11 +293,21 @@ section {
 }
 
 .content_project {
-    margin: 10px;
+    margin: 5px;
     border-radius: 5px;
-    & p{
-        height: 100px;
+    max-height: 400px;
+
+    & p {
         overflow: hidden;
+        height: 100%;
+        margin-bottom: 5px;
     }
-    & h3{ text-align: center;}
+
+    & h3 {
+        text-align: center;
+    }
+
+    & img {
+        min-height: 186px;
+    }
 }
