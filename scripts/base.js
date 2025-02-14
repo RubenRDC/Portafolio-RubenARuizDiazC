@@ -16,8 +16,9 @@ let projects = Array(consArt);
 
 window.addEventListener("popstate", function (e) {
     //console.log(e.target.document.activeElement);
+    //Que este deshabilitado el scroll en el html y que el que emite el evento no sea ninguno de los botones de abrir el modal.
     if (html.classList.contains("offScroll") && !e.target.document.activeElement.classList.contains("openViewProject")) {
-        closePreview();
+        closePreview({ isBack: true });
     }
 });
 const btnsView = document.querySelectorAll(".openViewProject");
@@ -28,20 +29,21 @@ btnsView.forEach(e => {
     e.addEventListener("click", openPreview);
 });
 
-function closePreview() {
+function closePreview({ isBack } = {}) {
     document.getElementById("previewProject").remove();
     html.classList.remove("offScroll");
-    window.history.pushState(null, "", "/");
+    window.history.replaceState(null, "", "/");
+    if (!isBack) { window.history.back() };
 }
 function openPreview(e) {
     loadPreview({ id: e.target.id, event: e });
 }
-function loadPreview({ id: idProject, event: e }) {
-    let p = projects.find(x => x.id == idProject);
+function loadPreview({ id, event }) {
+    let p = projects.find(x => x.id == id);
     if (p) {
         loadProject(p);
     } else {
-        e.preventDefault();
+        event.preventDefault();
     }
 }
 function loadProject(Project) {
