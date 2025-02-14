@@ -294,8 +294,8 @@ section {
 
 .close_previewProject {
     position: absolute;
-    right: 0;
-    top: 0;
+    right: 10px;
+    top: 10px;
     z-index: 2;
 
     & .btn {
@@ -308,11 +308,14 @@ section {
     }
 }
 
-.previewContent {
-    margin: 20px auto;
-    border-radius: 5px;
+.previewProject {
     overflow: auto;
     scrollbar-width: none;
+    max-height: 95vh;
+}
+
+.previewContent {
+    border-radius: 5px;
 
     & article {
         flex-direction: column;
@@ -353,10 +356,6 @@ section {
 }
 
 @media (width<770px) {
-    .previewContent {
-        margin: 0 auto;
-    }
-
     iframe {
         height: 310px;
     }
