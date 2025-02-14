@@ -311,7 +311,7 @@ section {
 .previewProject {
     overflow: auto;
     scrollbar-width: none;
-    max-height: 95vh;
+    max-height: 95dvh;
 }
 
 .previewContent {
