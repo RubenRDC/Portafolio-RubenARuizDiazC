@@ -54,7 +54,6 @@ function createComponent({ id, typeElemento = "div", clssList = [], txtContent =
     if (attr.src) x.setAttribute("src", attr.src);
     if (attr.allowfullscreen) x.setAttribute("allowfullscreen", attr.allowfullscreen);
     if (attr.alt) x.setAttribute("alt", attr.alt);
-    console.dir(x);
     return x;
 }
 
