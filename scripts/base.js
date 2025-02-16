@@ -9,7 +9,7 @@ class project {
         this.linkGithub = linkGithub;
     }
 }
-const consArt = new project("consultArt", "Consultor de Artículos", "Este proyecto corresponde a un sistema gestor de artículos demostrativo, en el cual se pueden almacenar artículos con foto, titulo, ubicaciones y stock actual, asociadas a depósitos personalizables, los cuales se pueden cargar y editar en las correspondientes secciones del programa.", ["Java", "Mysql", "GitHub", "Maven"], ["0.webp", "1.webp", "2.webp", "3.webp", "4.webp", "5.webp", "6.webp", "7.webp", "8.webp", "9.webp", "10.webp", "11.webp", "12.webp", "13.webp", "14.webp", "15.webp", "16.webp", "17.webp", "18.webp", "19.webp", "20.webp"], "https://mega.nz/embed/mGJUUCSD#MS_mHvE609B03MeEnqdGbbAz0DmybyLeSew3ulaBPxM!1m", "https://github.com/RubenRDC/Project-Java-ConsultArt");
+const consArt = new project("consultArt", "Consultor de Artículos", "El proyecto 'Consultor de Artículos' es un sistema gestor de artículos diseñado para almacenar y gestionar información detallada de productos de manera demostrativa. Cada artículo puede incluir una foto, título, ubicación y stock actual, y está asociado a depósitos personalizables que se pueden añadir y modificar en las secciones correspondientes del programa.", ["Java", "Mysql", "GitHub", "Maven"], ["0.webp", "1.webp", "2.webp", "3.webp", "4.webp", "5.webp", "6.webp", "7.webp", "8.webp", "9.webp", "10.webp", "11.webp", "12.webp", "13.webp", "14.webp", "15.webp", "16.webp", "17.webp", "18.webp", "19.webp", "20.webp"], "https://mega.nz/embed/mGJUUCSD#MS_mHvE609B03MeEnqdGbbAz0DmybyLeSew3ulaBPxM!1m", "https://github.com/RubenRDC/Project-Java-ConsultArt");
 
 let projects = Array(consArt);
 
@@ -43,7 +43,7 @@ function loadProject(p) {
     content.insertAdjacentElement("beforeend", X);
 }
 
-function createComponent({ id, typeElemento = "div", clssList = [], txtContent = "", attr = { loading: undefined, width: undefined, height: undefined, src: undefined, allowfullscreen: undefined } }) {
+function createComponent({ id, typeElemento = "div", clssList = [], txtContent = "", attr = { loading: undefined, width: undefined, height: undefined, src: undefined, allowfullscreen: undefined, alt: undefined } }) {
     let x = document.createElement(typeElemento);
     if (clssList.length > 0) x.classList.add(...clssList);
     if (id) x.id = id;
@@ -53,6 +53,7 @@ function createComponent({ id, typeElemento = "div", clssList = [], txtContent =
     if (attr.height) x.setAttribute("height", attr.height);
     if (attr.src) x.setAttribute("src", attr.src);
     if (attr.allowfullscreen) x.setAttribute("allowfullscreen", attr.allowfullscreen);
+    if (attr.alt) x.setAttribute("alt", attr.alt);
     console.dir(x);
     return x;
 }
@@ -85,7 +86,7 @@ function loadComponentDynamicProject({ id, title, desc, tecnologias = [], fotos 
     const componentDynamicTags = loadComponentDynamicProjectTags(tecnologias);
     const dynamicDesc = createComponent({ typeElemento: "p", txtContent: desc });
     const subtituloUno = createComponent({ typeElemento: "h3", txtContent: "Imágenes Demostrativas" });
-    const componentVisorPictures = loadComponentVisorPictures(fotos);
+    const componentVisorPictures = loadComponentVisorPictures({ id, fotos });
     const subtituloDos = createComponent({ typeElemento: "h3", txtContent: "Video Básico Demostrativo" });
     const iframe = loadComponentIframe(video);
     const btnlink = loadComponentBtn(linkGithub);
@@ -101,8 +102,39 @@ function loadComponentDynamicProjectTags(tecs = []) {
     });
     return ulComponentTags;
 }
-function loadComponentVisorPictures(fotos = []) {
-    return createComponent({ typeElemento: "div", clssList: ["error"], txtContent: "No se encontró imágenes demostrativas para exponer." });
+function loadComponentVisorPictures({ id, fotos = [] }) {
+    if (fotos.length < 1) {
+        return createComponent({ typeElemento: "div", clssList: ["error"], txtContent: "No se encontró imágenes demostrativas para exponer." });
+    }
+    const divVisor = createComponent({ typeElemento: "div", clssList: ["visor"] });
+    const divSelector = createComponent({ typeElemento: "div", clssList: ["selector"] });
+    const divPrincipalPicture = createComponent({ typeElemento: "div", clssList: ["content_PrincipalPicture"] });
+    const principalPicture = createComponent({ typeElemento: "img", clssList: ["principalPicture"], attr: { src: `/img/projects/${id}/${fotos[0]}`, loading: "lazy", alt: "Imagen principal del proyecto." } });
+
+    divPrincipalPicture.append(principalPicture);
+    fotos.forEach(e => {
+        const x = createComponent({ typeElemento: "img", clssList: ["selectable_picture"], attr: { src: `/img/projects/${id}/${e}`, loading: "lazy", alt: "Imagen del proyecto" } });
+        divSelector.append(x);
+    });
+    divVisor.append(divPrincipalPicture, divSelector);
+    let previousTarjet;
+    divVisor.addEventListener("click", (e) => {
+        if (e.target.matches(".selectable_picture")) {
+            if (previousTarjet && previousTarjet != e.target) {
+                previousTarjet.classList.remove("selected");
+            }
+            changePicturesVisor({ principalElement: principalPicture, targetSRC: e.target });
+            previousTarjet = e.target;
+        }
+    });
+
+    return divVisor;
+}
+function changePicturesVisor({ principalElement, targetSRC }) {
+    if (!targetSRC.classList.contains("selected")) {
+        targetSRC.classList.add("selected");
+        principalElement.setAttribute("src", targetSRC.attributes.src.value);
+    }
 }
 function loadComponentIframe(video = "") {
     if (video.length > 0) {
