@@ -354,13 +354,21 @@ section {
         overflow: auto;
         scrollbar-width: thin;
         scrollbar-color: var(--colorFondoSecundario) rgba(255, 166, 0, 0);
-        & img{
+
+        & img {
             width: min-content;
+        }
+        & .selected {
+            border: 2px var(--colorBotonesTagsLinks) solid;
         }
     }
 }
 
 @media (width<770px) {
+    .previewContent {
+        width: 100%;
+    }
+
     iframe {
         height: 310px;
     }
@@ -416,6 +424,7 @@ section {
         height: 210px;
     }
 }
+
 .error {
     color: red;
     padding: 5px 0;
