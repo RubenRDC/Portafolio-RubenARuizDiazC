@@ -35,7 +35,8 @@ function closePreview({ isBack } = {}) {
     if (!isBack) { window.history.back() };
 }
 function openPreview(e) {
-    loadProject(projects.find(x => x.id == e.target.id));
+    // target => currentTarget
+    loadProject(projects.find(x => x.id == e.currentTarget.id));
 }
 function loadProject(p) {
     let X = loadComponentPreviewProject(p);
