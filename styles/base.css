@@ -291,6 +291,10 @@ section {
     height: 100%;
     background-color: rgba(0, 0, 0, 0.699);
     z-index: 10;
+
+    & .status {
+        margin: 10px 0;
+    }
 }
 
 .close_previewProject {
@@ -358,6 +362,7 @@ section {
         & img {
             width: min-content;
         }
+
         & .selected {
             border: 2px var(--colorBotonesTagsLinks) solid;
         }

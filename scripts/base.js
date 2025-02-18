@@ -1,7 +1,10 @@
 class project {
-    constructor(id, title, desc, tecnologias = [], fotos = [], video, linkGithub) {
+    constructor(id, title, lastUpdate, typeProject, status, desc, tecnologias = [], fotos = [], video, linkGithub) {
         this.id = id;
         this.title = title;
+        this.lastUpdate = lastUpdate;
+        this.typeProject = typeProject;
+        this.status = status;
         this.desc = desc;
         this.tecnologias = tecnologias;
         this.fotos = fotos;
@@ -9,9 +12,11 @@ class project {
         this.linkGithub = linkGithub;
     }
 }
-const consArt = new project("consultArt", "Consultor de Artículos", "El proyecto 'Consultor de Artículos' es un sistema gestor de artículos diseñado para almacenar y gestionar información detallada de productos de manera demostrativa. Cada artículo puede incluir una foto, título, ubicación y stock actual, y está asociado a depósitos personalizables que se pueden añadir y modificar en las secciones correspondientes del programa.", ["Java", "Mysql", "GitHub", "Maven"], ["0.webp", "1.webp", "2.webp", "3.webp", "4.webp", "5.webp", "6.webp", "7.webp", "8.webp", "9.webp", "10.webp", "11.webp", "12.webp", "13.webp", "14.webp", "15.webp", "16.webp", "17.webp", "18.webp", "19.webp", "20.webp"], "https://mega.nz/embed/mGJUUCSD#MS_mHvE609B03MeEnqdGbbAz0DmybyLeSew3ulaBPxM!1m", "https://github.com/RubenRDC/Project-Java-ConsultArt");
+const consArt = new project("consultArt", "Consultor de Artículos", "26/08/2024", "Demostrativo", "Finalizado", "El proyecto 'Consultor de Artículos' es un sistema gestor de artículos diseñado para almacenar y gestionar información detallada de productos de manera demostrativa. Cada artículo puede incluir una foto, título, ubicación y stock actual, y está asociado a depósitos personalizables que se pueden añadir y modificar en las secciones correspondientes del programa.", ["Java", "Mysql", "GitHub", "Maven"], ["0.webp", "1.webp", "2.webp", "3.webp", "4.webp", "5.webp", "6.webp", "7.webp", "8.webp", "9.webp", "10.webp", "11.webp", "12.webp", "13.webp", "14.webp", "15.webp", "16.webp", "17.webp", "18.webp", "19.webp", "20.webp"], "https://mega.nz/embed/mGJUUCSD#MS_mHvE609B03MeEnqdGbbAz0DmybyLeSew3ulaBPxM!1m", "https://github.com/RubenRDC/Project-Java-ConsultArt");
+const ImportExport = new project("ImportExport", "Import/Export Excel a DB", "25/08/2024", "Tools", "Finalizado", "El proyecto 'Import/Export Excel a DB' es un sistema desarrollado en Java que facilita la importación y exportación de datos entre archivos Excel y bases de datos MySQL, utilizando la biblioteca Apache POI. Actualmente, soporta tipos de datos SQL como VARCHAR, DOUBLE, INTEGER, BOOLEAN y DATE, emplea diversas bibliotecas y herramientas, incluyendo java.util, java.time, java.sql, javax.swing, org.apache.poi.ss.usermodel, entre otras.", ["Java", "Mysql", "GitHub", "Maven", "Excel"], [], "", "https://github.com/RubenRDC/Project-Java-Excel");
 
-let projects = Array(consArt);
+
+let projects = Array(consArt, ImportExport);
 
 window.addEventListener("popstate", function (e) {
     //console.log(e.target.document.activeElement);
@@ -77,13 +82,14 @@ function loadComponentPreviewProject(project) {
     //console.dir(seccion);
     return seccion;
 }
-function loadComponentDynamicProject({ id, title, desc, tecnologias = [], fotos = [], video, linkGithub } = {}) {
+function loadComponentDynamicProject({ id, title, desc, lastUpdate, typeProject, status, tecnologias = [], fotos = [], video, linkGithub } = {}) {
     if (!id) {
         return [createComponent({ typeElemento: "div", clssList: ["error"], txtContent: "El proyecto que intentas previsualizar no se encuentra disponible por el momento, verifique más tarde." })];
     }
     const portada = createComponent({ typeElemento: "div", clssList: ["portada_previewProject"] });
     const titulo = createComponent({ typeElemento: "h2", txtContent: title });
     const componentDynamicTags = loadComponentDynamicProjectTags(tecnologias);
+    const componentDynamicStatus = loadStatusComponents({ lastUpdate, typeProject, status });
     const dynamicDesc = createComponent({ typeElemento: "p", txtContent: desc });
     const subtituloUno = createComponent({ typeElemento: "h3", txtContent: "Imágenes Demostrativas" });
     const componentVisorPictures = loadComponentVisorPictures({ id, fotos });
@@ -91,7 +97,7 @@ function loadComponentDynamicProject({ id, title, desc, tecnologias = [], fotos 
     const iframe = loadComponentIframe(video);
     const btnlink = loadComponentBtn(linkGithub);
 
-    return [portada, titulo, componentDynamicTags, dynamicDesc, subtituloUno, componentVisorPictures, subtituloDos, iframe, btnlink];
+    return [portada, titulo, componentDynamicTags, componentDynamicStatus, dynamicDesc, subtituloUno, componentVisorPictures, subtituloDos, iframe, btnlink];
 }
 function loadComponentDynamicProjectTags(tecs = []) {
     const ulComponentTags = createComponent({ typeElemento: "ul", clssList: ["tags"] });
@@ -151,4 +157,19 @@ function loadComponentBtn(link) {
                 </a>
             </div>`;
     return document.createRange().createContextualFragment(x);
+}
+function loadStatusComponents({ lastUpdate, typeProject, status }) {
+    const divStatus = createComponent({ typeElemento: "div", clssList: ["status"] })
+    const ul = createComponent({ typeElemento: "ul" });
+    const itemLastUpdate = createComponent({ typeElemento: "li", txtContent: "Ultima Actualización: " });
+    const itemTypeProject = createComponent({ typeElemento: "li", txtContent: "Tipo de proyecto: " });
+    const itemStatus = createComponent({ typeElemento: "li", txtContent: "Estado del proyecto: " });
+
+    itemLastUpdate.appendChild(createComponent({ typeElemento: "strong", txtContent: lastUpdate }));
+    itemTypeProject.appendChild(createComponent({ typeElemento: "strong", txtContent: typeProject }));
+    itemStatus.appendChild(createComponent({ typeElemento: "strong", txtContent: status }));
+
+    ul.append(itemLastUpdate, itemTypeProject, itemStatus);
+    divStatus.append(ul);
+    return divStatus;
 }
