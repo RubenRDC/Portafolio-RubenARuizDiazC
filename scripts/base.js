@@ -12,11 +12,15 @@ class project {
         this.linkGithub = linkGithub;
     }
 }
-const consArt = new project("consultArt", "Consultor de Artículos", "26/08/2024", "Demostrativo", "Finalizado", "El proyecto 'Consultor de Artículos' es un sistema gestor de artículos diseñado para almacenar y gestionar información detallada de productos de manera demostrativa. Cada artículo puede incluir una foto, título, ubicación y stock actual, y está asociado a depósitos personalizables que se pueden añadir y modificar en las secciones correspondientes del programa.", ["Java", "Mysql", "GitHub", "Maven"], ["0.webp", "1.webp", "2.webp", "3.webp", "4.webp", "5.webp", "6.webp", "7.webp", "8.webp", "9.webp", "10.webp", "11.webp", "12.webp", "13.webp", "14.webp", "15.webp", "16.webp", "17.webp", "18.webp", "19.webp", "20.webp"], "https://mega.nz/embed/mGJUUCSD#MS_mHvE609B03MeEnqdGbbAz0DmybyLeSew3ulaBPxM!1m", "https://github.com/RubenRDC/Project-Java-ConsultArt");
-const ImportExport = new project("ImportExport", "Import/Export Excel a DB", "25/08/2024", "Tools", "Finalizado", "El proyecto 'Import/Export Excel a DB' es un sistema desarrollado en Java que facilita la importación y exportación de datos entre archivos Excel y bases de datos MySQL, utilizando la biblioteca Apache POI. Actualmente, soporta tipos de datos SQL como VARCHAR, DOUBLE, INTEGER, BOOLEAN y DATE, emplea diversas bibliotecas y herramientas, incluyendo java.util, java.time, java.sql, javax.swing, org.apache.poi.ss.usermodel, entre otras.", ["Java", "Mysql", "GitHub", "Maven", "Excel"], [], "", "https://github.com/RubenRDC/Project-Java-Excel");
-
-
-let projects = Array(consArt, ImportExport);
+class preloadModal {
+    constructor(idProject, ModalProject) {
+        this.idProject = idProject;
+        this.ModalProject = ModalProject;
+    }
+}
+loadDynamicProject();
+let preLoadModals = Array();
+let projects;
 
 window.addEventListener("popstate", function (e) {
     //console.log(e.target.document.activeElement);
@@ -33,6 +37,16 @@ btnsView.forEach(e => {
     e.addEventListener("click", openPreview);
 });
 
+async function loadDynamicProject() {
+    try {
+        const respuesta = await fetch('/scripts/DynamicModalProject.json'); // Cargar el archivo JSON
+        if (!respuesta.ok) throw new Error('Error al cargar el JSON'); // Manejar errores HTTP
+        projects = await respuesta.json(); // Convertir a objeto JavaScript
+    } catch (error) {
+        console.error('Error:', error);
+    }
+}
+
 function closePreview({ isBack } = {}) {
     document.getElementById("previewProject").remove();
     html.classList.remove("offScroll");
@@ -44,9 +58,13 @@ function openPreview(e) {
     loadProject(projects.find(x => x.id == e.currentTarget.id));
 }
 function loadProject(p) {
-    let X = loadComponentPreviewProject(p);
+    let x = preLoadModals.find(x => x.idProject == p.id);
+    if (!x) {
+        x = loadComponentPreviewProject(p);
+        preLoadModals.push(x);
+    }
     html.classList.add("offScroll");
-    content.insertAdjacentElement("beforeend", X);
+    content.insertAdjacentElement("beforeend", x);
 }
 
 function createComponent({ id, typeElemento = "div", clssList = [], txtContent = "", attr = { loading: undefined, width: undefined, height: undefined, src: undefined, allowfullscreen: undefined, alt: undefined } }) {
@@ -150,12 +168,10 @@ function loadComponentIframe(video = "") {
     }
 }
 function loadComponentBtn(link) {
-    let x = `<div class="btns">
-                <a target="_blank" href="${link}" class="btn">
+    let x = `<div class="btns"><a target="_blank" href="${link}" class="btn">
                     <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="#e3e3e3" viewBox="0 0 256 256"><path d="M216,104v8a56.06,56.06,0,0,1-48.44,55.47A39.8,39.8,0,0,1,176,192v40a8,8,0,0,1-8,8H104a8,8,0,0,1-8-8V216H72a40,40,0,0,1-40-40A24,24,0,0,0,8,152a8,8,0,0,1,0-16,40,40,0,0,1,40,40,24,24,0,0,0,24,24H96v-8a39.8,39.8,0,0,1,8.44-24.53A56.06,56.06,0,0,1,56,112v-8a58.14,58.14,0,0,1,7.69-28.32A59.78,59.78,0,0,1,69.07,28,8,8,0,0,1,76,24a59.75,59.75,0,0,1,48,24h24a59.75,59.75,0,0,1,48-24,8,8,0,0,1,6.93,4,59.74,59.74,0,0,1,5.37,47.68A58,58,0,0,1,216,104Z"></path></svg>
                     GitHub
-                </a>
-            </div>`;
+            </a></div>`;
     return document.createRange().createContextualFragment(x);
 }
 function loadStatusComponents({ lastUpdate, typeProject, status }) {
