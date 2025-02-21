@@ -75,5 +75,20 @@
         ],
         "video": "https://mega.nz/embed/bGBQXBYQ#3_FzJdhYgsXQLdBSsVZ6OotZrsCxN6t7XGLFKjbiAqA!1m",
         "linkGithub": "https://github.com/RubenRDC/Project-Java-Excel"
+    },
+    {
+        "id": "StandardImgToWebp",
+        "title": "Standard Img To Webp",
+        "lastUpdate": "21/02/2025",
+        "typeProject": "Tools",
+        "status": "Finalizado",
+        "desc": "El proyecto 'Standard Img To Webp' es una herramienta básica de conversion de imágenes a el formato Webp normalmente utilizados en pagina webs por su compacto tamaño y alta calidad, utilizando la librería sharp para su desabollo.",
+        "tecnologias": [
+            "JavaScript",
+            "NodeJS"
+        ],
+        "fotos": [],
+        "video": "",
+        "linkGithub": "https://github.com/RubenRDC/Standard-Img-To-Webp"
     }
 ]
