@@ -55,16 +55,17 @@ function closePreview({ isBack } = {}) {
 }
 function openPreview(e) {
     // target => currentTarget
-    loadProject(projects.find(x => x.id == e.currentTarget.id));
-}
-function loadProject(p) {
-    let x = preLoadModals.find(x => x.idProject == p.id);
+    const idProject = e.currentTarget.id;
+    let x = preLoadModals.find(x => x.idProject == idProject);
     if (!x) {
-        x = loadComponentPreviewProject(p);
-        preLoadModals.push(x);
+        const p = projects.find(x => x.id == idProject);
+        x = new preloadModal(idProject, loadComponentPreviewProject(p));
+        if (p) {
+            preLoadModals.push(x);
+        }
     }
     html.classList.add("offScroll");
-    content.insertAdjacentElement("beforeend", x);
+    content.insertAdjacentElement("beforeend", x.ModalProject);
 }
 
 function createComponent({ id, typeElemento = "div", clssList = [], txtContent = "", attr = { loading: undefined, width: undefined, height: undefined, src: undefined, allowfullscreen: undefined, alt: undefined } }) {
