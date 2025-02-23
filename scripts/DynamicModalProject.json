@@ -82,7 +82,7 @@
         "lastUpdate": "21/02/2025",
         "typeProject": "Tools",
         "status": "Finalizado",
-        "desc": "El proyecto 'Standard Img To Webp' es una herramienta básica de conversion de imágenes a el formato Webp normalmente utilizados en pagina webs por su compacto tamaño y alta calidad, utilizando la librería sharp para su desabollo.",
+        "desc": "El proyecto 'Standard Img To Webp' es una herramienta básica de conversion de imágenes a el formato Webp normalmente utilizados en pagina webs por su compacto tamaño y alta calidad, utilizando la librería sharp para su desarrollo.",
         "tecnologias": [
             "JavaScript",
             "NodeJS"
@@ -90,5 +90,22 @@
         "fotos": [],
         "video": "",
         "linkGithub": "https://github.com/RubenRDC/Standard-Img-To-Webp"
+    },
+    {
+        "id": "ConsultorDeArtículosWeb",
+        "title": "Consultor de Artículos Web",
+        "lastUpdate": "22/02/2025",
+        "typeProject": "Demostrativo",
+        "status": "En Desarrollo",
+        "desc": "El proyecto 'Consultor de Artículos Web' es una version simplificada y web de 'Consultor de Artículos' en el cual se puede visualizar los artículos y su información en su sección visual y/o consumir su API para obtener los artículos y/o editarlos.",
+        "tecnologias": [
+            "Java",
+            "SpringBoot",
+            "Mysql",
+            "Maven"
+        ],
+        "fotos": [],
+        "video": "",
+        "linkGithub": "https://github.com/RubenRDC/Project-Java-SpringBoot-ConsultorWeb"
     }
 ]
