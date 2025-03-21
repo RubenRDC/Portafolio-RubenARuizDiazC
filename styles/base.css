@@ -439,3 +439,14 @@ section {
     text-align: center;
     text-transform: uppercase;
 }
+.error404{
+    text-align: center;
+    height: 100dvh;
+    display: flex;
+    & .content_error{
+        & .btns{
+            justify-content: center;
+            padding: 10px;
+        }
+    }
+}
